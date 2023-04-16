@@ -2265,3 +2265,21 @@ void CItemSoda::CanTouch(CBaseEntity* pOther)
 	SetThink(&CItemSoda::SUB_Remove);
 	pev->nextthink = gpGlobals->time;
 }
+
+#include "UserMessages.h"
+
+namespace Smoke
+{
+void SpawnCloud(Vector position, float radius, float force)
+{
+	MESSAGE_BEGIN(MSG_ALL, gmsgSmokeCloud);
+
+	WRITE_COORD(position.x);
+	WRITE_COORD(position.y);
+	WRITE_COORD(position.z);
+	WRITE_COORD(radius);
+	WRITE_COORD(force);
+
+	MESSAGE_END();
+}
+}

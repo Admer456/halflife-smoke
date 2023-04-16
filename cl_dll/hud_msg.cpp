@@ -28,6 +28,7 @@ extern BEAM* pBeam;
 extern BEAM* pBeam2;
 extern TEMPENTITY* pFlare; // Vit_amiN
 
+#include "smokesim/SmokeManager.hpp"
 
 /// USER-DEFINED SERVER MESSAGE HANDLERS
 
@@ -146,6 +147,25 @@ bool CHud::MsgFunc_Weapons(const char* pszName, int iSize, void* pbuf)
 	const std::uint64_t upperBits = READ_LONG();
 
 	m_iWeaponBits = (lowerBits & 0XFFFFFFFF) | ((upperBits & 0XFFFFFFFF) << 32ULL);
+
+	return true;
+}
+
+bool CHud::MsgFunc_SmokeCloud(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+	
+	Vector position;
+	Vector2D radiusAndForce;
+
+	position.x = READ_COORD();
+	position.y = READ_COORD();
+	position.z = READ_COORD();
+
+	radiusAndForce.x = READ_COORD();
+	radiusAndForce.y = READ_COORD();
+
+	SmokeManager::SpawnCloud(position, radiusAndForce.x, radiusAndForce.y);
 
 	return true;
 }

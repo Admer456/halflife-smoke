@@ -41,6 +41,8 @@
 #include "r_studioint.h"
 #include "com_model.h"
 
+#include "smokesim/SmokeManager.hpp"
+
 extern engine_studio_api_t IEngineStudio;
 
 static int tracerCount[MAX_PLAYERS];
@@ -388,6 +390,8 @@ void EV_HLDM_FireBullets(int idx, float* forward, float* right, float* up, int c
 
 		EV_HLDM_CheckTracer(idx, vecSrc, tr.endpos, forward, right, iBulletType, iTracerFreq, tracerCount);
 
+		float possibleDamage = 10.0f;
+
 		// do damage, paint decals
 		if (tr.fraction != 1.0)
 		{
@@ -398,26 +402,29 @@ void EV_HLDM_FireBullets(int idx, float* forward, float* right, float* up, int c
 
 				EV_HLDM_PlayTextureSound(idx, &tr, vecSrc, vecEnd, iBulletType);
 				EV_HLDM_DecalGunshot(&tr, iBulletType);
-
 				break;
+
 			case BULLET_PLAYER_MP5:
-
 				EV_HLDM_PlayTextureSound(idx, &tr, vecSrc, vecEnd, iBulletType);
 				EV_HLDM_DecalGunshot(&tr, iBulletType);
+				possibleDamage = 20.0f;
 				break;
+
 			case BULLET_PLAYER_BUCKSHOT:
-
 				EV_HLDM_DecalGunshot(&tr, iBulletType);
-
+				possibleDamage = 20.0f;
 				break;
-			case BULLET_PLAYER_357:
 
+			case BULLET_PLAYER_357:
 				EV_HLDM_PlayTextureSound(idx, &tr, vecSrc, vecEnd, iBulletType);
 				EV_HLDM_DecalGunshot(&tr, iBulletType);
-
+				possibleDamage = 40.0f;
 				break;
 			}
 		}
+
+		// Admer: smoke simulation!
+		SmokeManager::TraceBullet(vecSrc, tr.endpos, possibleDamage);
 
 		gEngfuncs.pEventAPI->EV_PopPMStates();
 	}

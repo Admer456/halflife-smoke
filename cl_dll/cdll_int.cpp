@@ -44,6 +44,8 @@ TeamFortressViewport* gViewPort = NULL;
 #include "particleman.h"
 IParticleMan* g_pParticleMan = nullptr;
 
+#include "smokesim/SmokeManager.hpp"
+
 void CL_LoadParticleMan();
 void CL_UnloadParticleMan();
 
@@ -146,6 +148,7 @@ int DLLEXPORT HUD_VidInit()
 {
 	//	RecClHudVidInit();
 	gHUD.VidInit();
+	SmokeManager::Init();
 
 	VGui_Startup();
 
@@ -186,6 +189,8 @@ int DLLEXPORT HUD_Redraw(float time, int intermission)
 
 	gHUD.Redraw(time, 0 != intermission);
 
+	SmokeManager::Update(time, gHUD.m_flTimeDelta);
+
 	return 1;
 }
 
@@ -225,6 +230,8 @@ void DLLEXPORT HUD_Reset()
 	//	RecClHudReset();
 
 	gHUD.VidInit();
+
+	SmokeManager::Restart();
 }
 
 /*

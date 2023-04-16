@@ -22,6 +22,8 @@
 #include "tri.h"
 extern IParticleMan* g_pParticleMan;
 
+#include "smokesim/SmokeManager.hpp"
+
 /*
 =================
 HUD_DrawNormalTriangles
@@ -48,7 +50,8 @@ void DLLEXPORT HUD_DrawTransparentTriangles()
 {
 	//	RecClDrawTransparentTriangles();
 
-
 	if (g_pParticleMan)
 		g_pParticleMan->Update();
+
+	SmokeManager::Render(gEngfuncs.pTriAPI, gHUD.m_flTime);
 }

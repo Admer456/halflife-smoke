@@ -64,6 +64,9 @@
     <Filter Include="Source Files\cl_dll\particleman">
       <UniqueIdentifier>{7085339d-2b33-4cdf-846c-0e4c7d33add8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\cl_dll\smokesim">
+      <UniqueIdentifier>{b283361b-f3c9-42c2-8be6-465717851ebf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -595,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\particleman\CBaseParticle.h">
       <Filter>Header Files\cl_dll\particleman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\SmokeManager.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

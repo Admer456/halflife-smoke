@@ -1013,13 +1013,15 @@ void ShutdownInput()
 #include "interface.h"
 void CL_UnloadParticleMan();
 
+#include "smokesim/SmokeManager.hpp"
 
 void DLLEXPORT HUD_Shutdown()
 {
 	//	RecClShutdown();
 
-	ShutdownInput();
+	SmokeManager::Shutdown();
 
+	ShutdownInput();
 
 	FileSystem_FreeFileSystem();
 	CL_UnloadParticleMan();

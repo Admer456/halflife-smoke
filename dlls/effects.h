@@ -218,3 +218,8 @@ public:
 	int m_iszSpriteName;
 	Vector m_firePosition;
 };
+
+namespace Smoke
+{
+void SpawnCloud(Vector position, float radius = 128.0f, float force = 16.0f);
+}

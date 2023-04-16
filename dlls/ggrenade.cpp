@@ -25,7 +25,7 @@
 #include "weapons.h"
 #include "soundent.h"
 #include "decals.h"
-
+#include "effects.h"
 
 //===================grenade
 
@@ -81,6 +81,9 @@ void CGrenade::Explode(TraceResult* pTrace, int bitsDamageType)
 	WRITE_BYTE(15);					   // framerate
 	WRITE_BYTE(TE_EXPLFLAG_NONE);
 	MESSAGE_END();
+
+	// Smoke simulations!!! -Admer
+	Smoke::SpawnCloud(pev->origin);
 
 	CSoundEnt::InsertSound(bits_SOUND_COMBAT, pev->origin, NORMAL_EXPLOSION_VOLUME, 3.0);
 	entvars_t* pevOwner;

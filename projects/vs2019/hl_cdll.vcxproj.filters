@@ -602,7 +602,19 @@
     <ClInclude Include="..\..\cl_dll\smokesim\SmokeManager.hpp">
       <Filter>Source Files\cl_dll\smokesim</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\InteractiveSmokeParticle.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\InteractiveSmokeCloud.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\cl_dll\smokesim\AABB.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\Ray.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\Force.hpp">
       <Filter>Source Files\cl_dll\smokesim</Filter>
     </ClInclude>
   </ItemGroup>

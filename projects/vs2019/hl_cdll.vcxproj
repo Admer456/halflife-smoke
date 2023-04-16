@@ -226,6 +226,11 @@ cmd /c ""$(ProjectDir)..\..\filecopy.bat" "$(OutDir)" "cl_dlls" "$(TargetName).p
     <ClInclude Include="..\..\cl_dll\particleman\particleman_internal.h" />
     <ClInclude Include="..\..\cl_dll\particleman\CMiniMem.h" />
     <ClInclude Include="..\..\cl_dll\smokesim\AABB.hpp" />
+    <ClInclude Include="..\..\cl_dll\smokesim\Force.hpp" />
+    <ClInclude Include="..\..\cl_dll\smokesim\InteractiveSmokeCloud.hpp" />
+    <ClInclude Include="..\..\cl_dll\smokesim\InteractiveSmokeParticle.hpp" />
+    <ClInclude Include="..\..\cl_dll\smokesim\Ray.hpp" />
+    <ClInclude Include="..\..\cl_dll\smokesim\SmokeManager.hpp" />
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
     <ClInclude Include="..\..\cl_dll\tri.h" />
     <ClInclude Include="..\..\cl_dll\vgui_int.h" />

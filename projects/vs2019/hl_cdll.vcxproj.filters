@@ -602,5 +602,8 @@
     <ClInclude Include="..\..\cl_dll\smokesim\SmokeManager.hpp">
       <Filter>Source Files\cl_dll\smokesim</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\cl_dll\smokesim\AABB.hpp">
+      <Filter>Source Files\cl_dll\smokesim</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

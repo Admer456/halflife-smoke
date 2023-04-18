@@ -22,6 +22,11 @@ There are some issues at the moment:
 How it looks:  
 ![](docs/screenshot1.jpg)
 
+# Download?
+
+Not available yet, please remain patient as this is an early work in progress. You can compile the code yourself if you know how, and don't forget to copy the smoke sprite asset:  
+`sprites/smokesim/smoke.spr`
+
 Half Life 1 SDK LICENSE
 ======================
 

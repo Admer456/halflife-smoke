@@ -42,8 +42,8 @@ public:
 		HSPRITE smokeSprite = SPR_Load("sprites/smokesim/smoke.spr");
 		if (smokeSprite <= 0)
 		{
-			gEngfuncs.Con_Printf("[SmokeManager] Cannot find 'sprites/smokesim/smoke.spr'");
-			gEngfuncs.Con_Printf("[SmokeManager] Without that sprite, smoke cannot be rendered.");
+			gEngfuncs.Con_Printf("[SmokeManager] Cannot find 'sprites/smokesim/smoke.spr'\n");
+			gEngfuncs.Con_Printf("[SmokeManager] Without that sprite, smoke cannot be rendered.\n");
 			return;
 		}
 

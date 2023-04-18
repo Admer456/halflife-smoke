@@ -46,7 +46,7 @@ jobs:
           msbuild-architecture: x86
       
       - name: Build
-        run: msbuild projects/vs2019/projects.sln -t:rebuild -property:Configuration=Release -maxcpucount:2
+        run: msbuild projects/vs2019/HalfLife_Smoked.sln -t:rebuild -property:Configuration=Release -maxcpucount:2
       
       - name: Deploy
         uses: actions/upload-artifact@v3.1.0

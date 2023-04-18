@@ -34,11 +34,14 @@ static Vector RandomVector()
 class SmokeManagerInternal final
 {
 private:
-	static inline bool CanRun = false;
+	static inline bool CanRun{false};
+	static inline cvar_t* cl_smoke_timers{nullptr};
 
 public:
 	static void Init()
 	{
+		cl_smoke_timers = gEngfuncs.pfnRegisterVariable("cl_smoke_timers", "0", FCVAR_CLIENTDLL);
+
 		HSPRITE smokeSprite = SPR_Load("sprites/smokesim/smoke.spr");
 		if (smokeSprite <= 0)
 		{
@@ -94,15 +97,15 @@ public:
 			}
 		}
 
-		for (auto cloud = Clouds.begin(); cloud != Clouds.end(); cloud++)
+		for (auto& cloud : Clouds)
 		{
-			if (!cloud->Active)
+			if (!cloud.Active)
 			{
 				continue;
 			}
 
 			bool cloudIsActive = false;
-			for (auto& particle : cloud->Particles)
+			for (auto& particle : cloud.Particles)
 			{
 				if (particle.Active())
 				{
@@ -139,13 +142,16 @@ public:
 			// we may remove the entire cloud.
 			if (!cloudIsActive)
 			{
-				cloud->Particles.clear();
+				cloud.Particles.clear();
 			}
 		}
 
 		auto tpEnd = chrono::system_clock::now();
 		float microseconds = chrono::duration_cast<chrono::nanoseconds>(tpEnd - tpStart).count() * 0.001f;
-		gEngfuncs.Con_Printf("SmokeManager.Update: %4.2f us\n", microseconds);
+		if (cl_smoke_timers->value)
+		{
+			gEngfuncs.Con_Printf("SmokeManager.Update: %4.2f us\n", microseconds);
+		}
 	}
 
 #if 0
@@ -220,13 +226,18 @@ public:
 		{
 			for (auto& particle : cloud.Particles)
 			{
-				RenderParticle(tri, particle.Position, particle.Transparency(time), particle.Radius);
+				if (particle.Active())
+				{
+					RenderParticle(tri, particle.Position, particle.Transparency(time), particle.Radius);
+				}
 			}
 		}
 
 		auto tpEnd = chrono::system_clock::now();
 		float microseconds = chrono::duration_cast<chrono::nanoseconds>(tpEnd - tpStart).count() * 0.001f;
-		if (gHUD.m_flTimeDelta == 0.0f)
+
+		// TODO: Proper pause detection
+		if (gHUD.m_flTimeDelta != 0.0f && cl_smoke_timers->value)
 		{
 			gEngfuncs.Con_Printf("SmokeManager.Render: %4.2f us\n", microseconds);
 		}
@@ -284,7 +295,10 @@ public:
 
 		auto tpEnd = chrono::system_clock::now();
 		float microseconds = chrono::duration_cast<chrono::nanoseconds>(tpEnd - tpStart).count() * 0.001f;
-		gEngfuncs.Con_Printf("SmokeManager.TraceBullet: %4.2f us\n", microseconds);
+		if (cl_smoke_timers->value)
+		{
+			gEngfuncs.Con_Printf("SmokeManager.TraceBullet: %4.2f us\n", microseconds);
+		}
 	}
 
 	static void SetupCloud(InteractiveSmokeCloud& cloud, Vector position, float radius, float particleSize)
@@ -313,8 +327,6 @@ public:
 			// Particles closer to the centre will stay alive for longer
 			particle.Life = 30.0f + gEngfuncs.pfnRandomFloat(0.0f, 10.0f) - randomOffset.Length() * 10.0f;
 		}
-
-		gEngfuncs.Con_Printf("SmokeManager.SetupCloud: %d clouds total\n", (int)Clouds.size());
 	}
 
 	static inline std::vector<Force> Forces{};

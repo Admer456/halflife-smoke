@@ -106,7 +106,11 @@ public:
 			{
 				if (particle.Active())
 				{
-					//for (auto& force : Forces)
+					// Too slow at the moment, thinking about integrating forces into particles themselves,
+					// it should help a lot with cache locality. It'd consume a lot more memory, so on one hand
+					// you'd be using more cache, but I think it's an acceptable compromise? 2-3 forces per particle
+					//
+					// for (auto& force : Forces)
 					//{
 					//	if (!force.Active(time))
 					//	{

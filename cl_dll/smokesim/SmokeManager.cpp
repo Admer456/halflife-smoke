@@ -33,16 +33,22 @@ static Vector RandomVector()
 
 class SmokeManagerInternal final
 {
+private:
+	static inline bool CanRun = false;
+
 public:
 	static void Init()
 	{
 		HSPRITE smokeSprite = SPR_Load("sprites/smokesim/smoke.spr");
 		if (smokeSprite <= 0)
 		{
-			gEngfuncs.Con_Printf("Fuck");
+			gEngfuncs.Con_Printf("[SmokeManager] Cannot find 'sprites/smokesim/smoke.spr'");
+			gEngfuncs.Con_Printf("[SmokeManager] Without that sprite, smoke cannot be rendered.");
+			return;
 		}
 
 		SmokeTexture = gEngfuncs.GetSpritePointer(smokeSprite);
+		CanRun = true;
 	}
 
 	static void Restart()
@@ -54,11 +60,12 @@ public:
 	static void Shutdown()
 	{
 		Clouds.clear();
+		CanRun = false;
 	}
 
 	static void Update(const float& time, const float& deltaTime)
 	{
-		if (Clouds.empty())
+		if (Clouds.empty() || !CanRun)
 		{
 			return;
 		}
@@ -181,6 +188,11 @@ public:
 
 	static void Render(triangleapi_s* tri, const float& time)
 	{
+		if (!CanRun)
+		{
+			return;
+		}
+
 		auto tpStart = chrono::system_clock::now();
 
 		gEngfuncs.pfnAngleVectors(gHUD.m_vecAngles, ViewForward, ViewRight, ViewUp);

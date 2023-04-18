@@ -1,66 +1,26 @@
-About
-======================
 
-[Half-Life Updated](https://github.com/SamVanheer/halflife-updated), [Opposing Force Updated](https://github.com/SamVanheer/halflife-op4-updated) and [Blue Shift Updated](https://github.com/SamVanheer/halflife-bs-updated) are repositories that provide updated versions of the Half-Life SDK, targeted to the 3 Half-Life 1 PC games officially available.
+# Half-Life: Smoked
 
-Purpose
-======================
+Counter-Strike 2-style responsive smoke in HL1. Some creative liberties were taken, such as:
+- the smoke lasts for a relatively short while, since right now it's only emitted by explosions, there's no dedicated smoke grenade
+- the smoke does not regenerate after shooting, read above
 
-Each repository provides project files compatible with Visual Studio 2019 and 2022, as well as bug fixes. The Opposing Force and Blue Shift projects are reference implementations of their respective games. This means they provide the original features, implemented as they are in the original games, including the many cases of code duplication.
+Inspired by [this video](https://www.youtube.com/watch?v=zNbku2qrtDM).
 
-The goal of the Updated repositories is to allow modders to make mods based on these games, while providing bug fixes that could be applied to the official games as well. A mod installation is also provided for each repository to allow players to play these games with all bug fixes applied.
+Most of the work was done in 9 hours (commits `43dbc5` to `8c7aa2`).
 
-This mod installation includes files that are required when making a mod based on these SDKs.
+Runs pretty fast, 4000 particles take about 50-60 μs to process and maybe 2 to 3x as much to render (RTX 3060, i5 8400). Can't reliably profile the GPU here, but it should all be under a couple milliseconds though. There are plans to do further optimisations and to enhance the visuals.
 
-The **scope** of the Updated projects is **limited to bug fixes**, **feature requests to improve the game's code** and **fixing game-breaking bugs in the game assets** (e.g. soft-locked trigger setups). Changes like **graphical upgrades**, **physics engine changes** and other **engine changes** are **out of scope**.
+There are some issues at the moment:
+- dark spots of smoke when particles go into the ground
+- particles aren't cleared when the map is restarted
+- the Linux makefile hasn't been tested
+- multiplayer hasn't been tested, but it should work in theory
+- might replace the raycasting code
+- doesn't look good in very bright or sunny areas
 
-If you need help setting up the SDK or developing a mod please ask on the [TWHL website](https://twhl.info/) or on its [Discord server](https://discord.gg/jEw8EqD).
-
-The TWHL wiki has tutorials to guide you through making a mod: https://twhl.info/wiki/page/Half-Life_Programming_-_Getting_Started
-
-See the `#welcome` channel for more information about the Discord server. Please do not use the `#unified-sdk` channel for general help requests, there are channels for modding help.
-
-See the TWHL thread for status updates about these projects: https://twhl.info/thread/view/20055
-
-Requirements to run mods built with this SDK
-======================
-
-Only the latest Steam version of Half-Life is supported. For the Opposing Force and Blue Shift repositories you will need to own the games and have them installed to use their assets.
-
-Building this SDK
-======================
-
-See [BUILDING.md](BUILDING.md)
-
-Mod installation instructions
-======================
-
-See [INSTALL.md](INSTALL.md)
-
-What isn't supported
-======================
-
-Backwards compatibility with WON and older versions of Steam Half-Life is not supported. Xash isn't supported, but may work. You cannot use Updated clients to play on vanilla servers, you also cannot use vanilla clients to play on Updated servers.
-
-Placing Updated game dlls in vanilla installations is not supported.
-
-These repositories have a limited scope and will not have major changes applied.
-
-Deathmatch Classic and Ricochet
-======================
-
-The source code for Deathmatch Classic and Ricochet is in the original Half-Life SDK. The purpose of these updated repositories is to provide updated versions only for Half-Life and its expansion packs, so the source code for these mods has been removed.
-
-Since the vanilla versions don't compile under newer versions of Visual Studio separate repositories have been made that provide the same updates to make them compile:
-* https://github.com/SamVanheer/dmc-updated
-* https://github.com/SamVanheer/ricochet-updated
-
-Unlike the other updated repositories these only provide basic fixes. No further development and support will be provided.
-
-Changelog
-======================
-
-See [CHANGELOG.md](CHANGELOG.md) and [FULL_CHANGELOG.md](FULL_CHANGELOG.md)
+How it looks:  
+![](docs/screenshot1.jpg)
 
 Half Life 1 SDK LICENSE
 ======================
